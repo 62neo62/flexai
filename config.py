@@ -30,7 +30,11 @@ ARM_FLEXION_THRESHOLD_DEG = 80
 SERVO_SHOULDER = 0
 SERVO_ELBOW = 1
 SERVO_WRIST = 2
+SERVO_CLAW = 3
 REST_ANGLE = 0
+
+CLAW_PROXIMITY_THRESHOLD_PX = 200  # wrist-to-wrist pixel distance that starts closing the claw
+CLAW_MAX_ANGLE = 90                 # degrees when hands are at contact
 
 SERVO_I2C_ADDRESS = 0x40
 SERVO_CHANNELS = 16
