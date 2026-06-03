@@ -53,6 +53,14 @@ def get_keypoints(pose) -> dict[str, tuple[int, int]]:
     return points
 
 
+def hand_distance(points: dict[str, tuple[int, int]]) -> float | None:
+    if "left wrist" not in points or "right wrist" not in points:
+        return None
+    lw = points["left wrist"]
+    rw = points["right wrist"]
+    return math.sqrt((lw[0] - rw[0]) ** 2 + (lw[1] - rw[1]) ** 2)
+
+
 def arm_is_flexed(points: dict[str, tuple[int, int]], side: str) -> tuple[bool, float | None]:
     shoulder = f"{side} shoulder"
     elbow = f"{side} elbow"
