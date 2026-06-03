@@ -1,10 +1,12 @@
 from .config import (
     CAMERA_INDEX,
+    CLAW_MAX_ANGLE,
     FRAME_HEIGHT,
     FRAME_WIDTH,
     LED_GPIO_PIN,
     REST_ANGLE,
     SERVO_CHANNELS,
+    SERVO_CLAW,
     SERVO_ELBOW,
     SERVO_I2C_ADDRESS,
     SERVO_MAX_ANGLE,
@@ -28,9 +30,11 @@ class Hardware:
         self.kit.servo[SERVO_SHOULDER].set_pulse_width_range(SERVO_PULSE_MIN_US, SERVO_PULSE_MAX_US)
         self.kit.servo[SERVO_ELBOW].set_pulse_width_range(SERVO_PULSE_MIN_US, SERVO_PULSE_MAX_US)
         self.kit.servo[SERVO_WRIST].set_pulse_width_range(SERVO_PULSE_MIN_US, SERVO_PULSE_MAX_US)
+        self.kit.servo[SERVO_CLAW].set_pulse_width_range(SERVO_PULSE_MIN_US, SERVO_PULSE_MAX_US)
         self.kit.servo[SERVO_SHOULDER].angle = REST_ANGLE
         self.kit.servo[SERVO_ELBOW].angle = REST_ANGLE
         self.kit.servo[SERVO_WRIST].angle = REST_ANGLE
+        self.kit.servo[SERVO_CLAW].angle = REST_ANGLE
 
         self.cap = cv2.VideoCapture(CAMERA_INDEX)
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, FRAME_WIDTH)
@@ -43,6 +47,9 @@ class Hardware:
         self.kit.servo[SERVO_SHOULDER].angle = max(SERVO_MIN_ANGLE, min(SERVO_MAX_ANGLE, shoulder))
         self.kit.servo[SERVO_ELBOW].angle = max(SERVO_MIN_ANGLE, min(SERVO_MAX_ANGLE, elbow))
         self.kit.servo[SERVO_WRIST].angle = max(SERVO_MIN_ANGLE, min(SERVO_MAX_ANGLE, wrist))
+
+    def set_claw(self, angle: float) -> None:
+        self.kit.servo[SERVO_CLAW].angle = max(SERVO_MIN_ANGLE, min(CLAW_MAX_ANGLE, angle))
 
     def close(self) -> None:
         try:
